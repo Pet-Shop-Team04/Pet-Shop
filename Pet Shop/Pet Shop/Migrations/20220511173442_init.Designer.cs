@@ -10,8 +10,8 @@ using Pet_Shop.Data;
 namespace Pet_Shop.Migrations
 {
     [DbContext(typeof(PetDbContext))]
-    [Migration("20220511150441_AddAllTable1")]
-    partial class AddAllTable1
+    [Migration("20220511173442_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
