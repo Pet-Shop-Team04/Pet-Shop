@@ -108,3 +108,8 @@ C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\obj\Debug\net5.0\Pet Shop.dll
 C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\obj\Debug\net5.0\ref\Pet Shop.dll
 C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\obj\Debug\net5.0\Pet Shop.pdb
 C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\obj\Debug\net5.0\Pet Shop.genruntimeconfig.cache
+C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\hmzai\Desktop\Pet-Shop\Pet Shop\Pet Shop\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
