@@ -24,6 +24,12 @@ namespace Pet_Shop
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddControllers();
+            //services.AddTransient<IAnimal, >();
+            //services.AddTransient<IEvent, >();
+            //services.AddTransient<IAnimalProdact, >();
+            //services.AddTransient<ICart, >();
+            //services.AddTransient<IUser, >();
             services.AddDbContext<PetDbContext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
