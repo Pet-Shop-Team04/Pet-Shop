@@ -10,7 +10,7 @@ namespace Pet_Shop.Models.Interfaces
         Task<Cart> Create(Cart cart);
         Task<Cart> GetCart(int UserId);
         Task<List<Cart>> GetCarts();
-        Task<AnimalEvent> UpdateCart(Cart cart);
+        Task<Cart> UpdateCart(Cart cart);
         Task DeleteCart(int UserId);
     }
 }

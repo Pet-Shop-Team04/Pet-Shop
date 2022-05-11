@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pet_Shop.Data;
+using Pet_Shop.Models.Interfaces;
+using Pet_Shop.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +27,11 @@ namespace Pet_Shop
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddControllers();
-            //services.AddTransient<IAnimal, >();
-            //services.AddTransient<IEvent, >();
-            //services.AddTransient<IAnimalProdact, >();
-            //services.AddTransient<ICart, >();
-            //services.AddTransient<IUser, >();
+            services.AddTransient<IAnimal, AnimalServices>();
+            services.AddTransient<IEvent, EventServices>();
+            services.AddTransient<IAnimalProduct, AnimalProductServices>();
+            services.AddTransient<ICart, CartServices>();
+           
             services.AddDbContext<PetDbContext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");

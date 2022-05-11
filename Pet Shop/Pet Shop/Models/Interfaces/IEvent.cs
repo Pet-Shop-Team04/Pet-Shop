@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Pet_Shop.Models.Interfaces
 {
-    interface IEvent
+    public interface IEvent
     {
         Task<Event> Create(Event Event);
         Task<Event> GetEvent(int Id);

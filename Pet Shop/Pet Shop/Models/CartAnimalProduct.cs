@@ -8,7 +8,7 @@
         //Navigation Properties
 
         public Cart Carts { get; set; }
-        public AnimalProdact AnimalProdacts { get; set; }
+        public AnimalProduct AnimalProdacts { get; set; }
 
     }
 }

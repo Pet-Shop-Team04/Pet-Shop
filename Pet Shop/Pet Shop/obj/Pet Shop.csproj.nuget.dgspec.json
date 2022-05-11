@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\youse\\Desktop\\projact\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj": {}
+    "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj": {}
   },
   "projects": {
-    "C:\\Users\\youse\\Desktop\\projact\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj": {
+    "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youse\\Desktop\\projact\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
+        "projectUniqueName": "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
         "projectName": "Pet Shop",
-        "projectPath": "C:\\Users\\youse\\Desktop\\projact\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
-        "packagesPath": "C:\\Users\\youse\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youse\\Desktop\\projact\\Pet-Shop\\Pet Shop\\Pet Shop\\obj\\",
+        "projectPath": "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
+        "packagesPath": "C:\\Users\\LEGION\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\youse\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LEGION\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

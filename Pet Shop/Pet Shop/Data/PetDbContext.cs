@@ -7,10 +7,10 @@ namespace Pet_Shop.Data
     {
 
         public DbSet<Animal> Animals { get; set; }
-        public DbSet<AnimalProdact> AnimalProdacts { get; set; }
+        public DbSet<AnimalProduct> AnimalProducts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<User> Users { get; set; }
+    
         public DbSet<AnimalCart> AnimalCarts { get; set; }
 
         public DbSet<AnimalEvent> AnimalEvents { get; set; }

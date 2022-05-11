@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pet_Shop.Migrations
 {
-    public partial class AddPet : Migration
+    public partial class addedTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
