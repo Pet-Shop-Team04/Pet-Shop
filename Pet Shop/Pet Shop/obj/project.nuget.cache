@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BgUV6RWn1MB02SNiCKpkVGSQmAEIzaLLH54B+gX75jAQ/jFALExH0y7mp5ByxsjJjeWioCJWrewdVrKxzTbSsg==",
+  "dgSpecHash": "qgtvqesTFRzcrEvd8p3d/i4dg5IiACfSm4p8C4leiQFai0sE+AnozXkp6LEo7U3s45FS23yK0vLre6Jz81OP1Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\LEGION\\Source\\Repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
+  "projectFilePath": "C:\\Users\\LEGION\\source\\repos\\Pet-Shop\\Pet Shop\\Pet Shop\\Pet Shop.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LEGION\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\LEGION\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
