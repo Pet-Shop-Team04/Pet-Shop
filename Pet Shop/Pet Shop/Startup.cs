@@ -28,6 +28,13 @@ namespace Pet_Shop
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddControllers();
+            services.AddTransient<IAnimal, AnimalServices>();
+            services.AddTransient<IEvent, EventServices>();
+            services.AddTransient<IAnimalProduct, AnimalProductServices>();
+            services.AddTransient<ICart, CartServices>();
+            services.AddTransient<IUserService, IdentityUserService>();
+          
             services.AddDbContext<PetDbContext>(options => {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -42,9 +49,6 @@ namespace Pet_Shop
                 // There are other options like this
             })
             .AddEntityFrameworkStores<PetDbContext>();
-
-
-            services.AddTransient<IUserService, IdentityUserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

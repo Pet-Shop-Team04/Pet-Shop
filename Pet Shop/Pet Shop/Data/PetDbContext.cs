@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Models;
 
@@ -8,7 +8,7 @@ namespace Pet_Shop.Data
     {
 
         public DbSet<Animal> Animals { get; set; }
-        public DbSet<AnimalProdact> AnimalProdacts { get; set; }
+        public DbSet<AnimalProduct> AnimalProducts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Event> Events { get; set; }
 
