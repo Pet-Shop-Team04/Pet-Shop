@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Data;
+using Pet_Shop.Models.DTO;
 using Pet_Shop.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,40 +17,97 @@ namespace Pet_Shop.Models.Services
         {
             _context = context;
         }
-        public async Task<AnimalProduct> Create(AnimalProduct animalProduct)
+        public async Task<AnimalProduct> Create(AnimalProductDto animalProductDto)
         {
+            AnimalProduct animalProduct = new AnimalProduct
+            {
+
+                AnimalProdactId = animalProductDto.AnimalProdactId,
+                ItemName = animalProductDto.ItemName,
+                AnimalType = animalProductDto.AnimalType,
+                ItemPrice = animalProductDto.ItemPrice,
+                ItemDescription = animalProductDto.ItemDescription
+
+            };
+
+
+
             _context.Entry(animalProduct).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
             return animalProduct;
         }
 
-        public async Task DeleteAnimalProduct(int Id)
+        public async Task<AnimalProductDto> GetAnimalProduct(int Id)
         {
-            AnimalProduct animalProdact = await GetAnimalProduct(Id);
-            _context.Entry(animalProdact).State = EntityState.Deleted;
 
-            await _context.SaveChangesAsync();
+            return await _context.AnimalProducts.Select(
+
+                     animalProduct => new AnimalProductDto
+                     {
+
+                         AnimalProdactId = animalProduct.AnimalProdactId,
+                         ItemName= animalProduct.ItemName,
+                         AnimalType= animalProduct.AnimalType,
+                         ItemPrice= animalProduct.ItemPrice,
+                         ItemDescription = animalProduct.ItemDescription,
+                     
+                      }
+
+              ).FirstOrDefaultAsync(x => x.AnimalProdactId == Id);
+
+
         }
-        public async Task<AnimalProduct> GetAnimalProduct(int Id)
-        {
 
-            AnimalProduct animalProduct = await _context.AnimalProducts.FindAsync(Id);
-            return animalProduct;
+        public async Task<List<AnimalProductDto>> GetAnimalProducts()
+        {
+            return await _context.AnimalProducts.Select(
+
+         animalProduct => new AnimalProductDto
+         {
+
+             AnimalProdactId = animalProduct.AnimalProdactId,
+             ItemName = animalProduct.ItemName,
+             AnimalType = animalProduct.AnimalType,
+             ItemPrice = animalProduct.ItemPrice,
+             ItemDescription = animalProduct.ItemDescription,
+                         //ItemType = animalProduct.ItemType,
+                         //Count = animalProduct.Count
+                     }
+
+              ).ToListAsync();
+
         }
 
-        public async Task<List<AnimalProduct>> GetAnimalProducts()
+        public async Task<AnimalProduct> UpdateAnimalProduct(int Id, AnimalProductDto animalProductDto)
         {
-            var animalProducts = await _context.AnimalProducts.ToListAsync();
-            return animalProducts;
-        }
 
-        public async Task<AnimalProduct> UpdateAnimalProduct(int Id, AnimalProduct animalProduct)
-        {
+            AnimalProduct animalProduct = new AnimalProduct
+            {
+
+                AnimalProdactId = animalProductDto.AnimalProdactId,
+                ItemName = animalProductDto.ItemName,
+                AnimalType = animalProductDto.AnimalType,
+                ItemPrice = animalProductDto.ItemPrice,
+                ItemDescription = animalProductDto.ItemDescription
+
+            };
+
             _context.Entry(animalProduct).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return animalProduct;
 
         }
+        public async Task DeleteAnimalProduct(int id)
+        {
+            AnimalProduct animalProduct = await _context.AnimalProducts.FindAsync(id);
+            if (animalProduct != null)
+            {
+                _context.Entry(animalProduct).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
     }
 }

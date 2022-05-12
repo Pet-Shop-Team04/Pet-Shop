@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Data;
+using Pet_Shop.Models.DTO;
 using Pet_Shop.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,20 @@ namespace Pet_Shop.Models.Services
             _context = context;
         }
 
-        public async Task<Animal> Create(Animal animal)
+        public async Task<Animal> Create(AnimalDto animalDto)
         {
+
+            Animal animal = new Animal
+            {
+
+                Name = animalDto.Name,
+                Gender = animalDto.Gender,
+                Price = animalDto.Price,
+                DateOfBerth = animalDto.DateOfBerth,
+                AnimalType = animalDto.AnimalType
+
+            };
+
             _context.Entry(animal).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
@@ -26,20 +39,65 @@ namespace Pet_Shop.Models.Services
 
         }
 
-        public async Task<Animal> GetAnimal(int id)
+        public async Task<AnimalDto> GetAnimal(int id)
         {
-            Animal animal = await _context.Animals.FindAsync(id);
-            return animal;
+
+
+            return await _context.Animals.Select(
+
+                     animal => new AnimalDto
+                     {
+                         AnimalId = animal.AnimalId,
+                         Name = animal.Name,
+                         Gender = animal.Gender,
+                         Price = animal.Price,
+                         DateOfBerth = animal.DateOfBerth,
+                         AnimalType = animal.AnimalType
+
+
+
+
+                     }
+
+              ).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
 
-        public async Task<List<Animal>> GetAnimals()
+        public async Task<List<AnimalDto>> GetAnimals()
         {
-            var animals = await _context.Animals.ToListAsync();
-            return animals;
+
+            return await _context.Animals.Select(
+
+                     animal => new AnimalDto
+                     {
+                         AnimalId = animal.AnimalId,
+                         Name = animal.Name,
+                         Gender = animal.Gender,
+                         Price = animal.Price,
+                         DateOfBerth = animal.DateOfBerth,
+                         AnimalType= animal.AnimalType
+
+
+
+
+                     }
+
+              ).ToListAsync();
         }
 
-        public async Task<Animal> UpdateAnimal(int id, Animal animal)
+        public async Task<Animal> UpdateAnimal(int id, AnimalDto animalDto)
         {
+            Animal animal = new Animal
+            {
+
+                Name = animalDto.Name,
+                Gender = animalDto.Gender,
+                Price = animalDto.Price,
+                DateOfBerth = animalDto.DateOfBerth,
+                AnimalType = animalDto.AnimalType
+
+            };
+
+
             _context.Entry(animal).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return animal;
@@ -49,10 +107,13 @@ namespace Pet_Shop.Models.Services
 
         public async Task DeleteAnimal(int id)
         {
-            Animal animal = await GetAnimal(id);
-            _context.Entry(animal).State = EntityState.Deleted;
+            Animal animal = await _context.Animals.FindAsync(id);
+            if (animal != null)
+            {
+                _context.Entry(animal).State = EntityState.Deleted;
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

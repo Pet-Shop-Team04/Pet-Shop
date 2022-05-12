@@ -207,7 +207,7 @@ namespace Pet_Shop.Migrations
                     b.ToTable("AnimalEvents");
                 });
 
-            modelBuilder.Entity("Pet_Shop.Models.AnimalProdact", b =>
+            modelBuilder.Entity("Pet_Shop.Models.AnimalProduct", b =>
                 {
                     b.Property<int>("AnimalProdactId")
                         .ValueGeneratedOnAdd()
@@ -234,7 +234,7 @@ namespace Pet_Shop.Migrations
 
                     b.HasKey("AnimalProdactId");
 
-                    b.ToTable("AnimalProdacts");
+                    b.ToTable("AnimalProducts");
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.ApplicationUser", b =>
@@ -318,10 +318,12 @@ namespace Pet_Shop.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("CartId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UsersId");
 
                     b.ToTable("Carts");
                 });
@@ -334,9 +336,12 @@ namespace Pet_Shop.Migrations
                     b.Property<int>("AnimalProdactId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AnimalProdactsAnimalProdactId")
+                        .HasColumnType("int");
+
                     b.HasKey("CartId", "AnimalProdactId");
 
-                    b.HasIndex("AnimalProdactId");
+                    b.HasIndex("AnimalProdactsAnimalProdactId");
 
                     b.ToTable("CartAnimalProducts");
                 });
@@ -363,30 +368,6 @@ namespace Pet_Shop.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Events");
-                });
-
-            modelBuilder.Entity("Pet_Shop.Models.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -480,22 +461,18 @@ namespace Pet_Shop.Migrations
 
             modelBuilder.Entity("Pet_Shop.Models.Cart", b =>
                 {
-                    b.HasOne("Pet_Shop.Models.User", "Users")
-                        .WithOne("Carts")
-                        .HasForeignKey("Pet_Shop.Models.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Pet_Shop.Models.ApplicationUser", "Users")
+                        .WithMany()
+                        .HasForeignKey("UsersId");
 
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.CartAnimalProduct", b =>
                 {
-                    b.HasOne("Pet_Shop.Models.AnimalProdact", "AnimalProdacts")
+                    b.HasOne("Pet_Shop.Models.AnimalProduct", "AnimalProdacts")
                         .WithMany()
-                        .HasForeignKey("AnimalProdactId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnimalProdactsAnimalProdactId");
 
                     b.HasOne("Pet_Shop.Models.Cart", "Carts")
                         .WithMany("CartAnimalProducts")
@@ -525,11 +502,6 @@ namespace Pet_Shop.Migrations
             modelBuilder.Entity("Pet_Shop.Models.Event", b =>
                 {
                     b.Navigation("AnimalEvents");
-                });
-
-            modelBuilder.Entity("Pet_Shop.Models.User", b =>
-                {
-                    b.Navigation("Carts");
                 });
 #pragma warning restore 612, 618
         }
