@@ -7,10 +7,8 @@ namespace Pet_Shop.Models
         public int CartId { get; set; }
         public int TotalPrice { get; set; }
         public int Count { get; set; }
-
-
         public int UserId { get; set; }
-        public User Users { get; set; }
+        public ApplicationUser Users { get; set; }
         public List<AnimalCart> AnimalCarts { get; set; }
         public List<CartAnimalProduct> CartAnimalProducts { get; set; }
 

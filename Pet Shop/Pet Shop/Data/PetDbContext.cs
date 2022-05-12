@@ -1,25 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Models;
 
 namespace Pet_Shop.Data
 {
-    public class PetDbContext : DbContext
+    public class PetDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public DbSet<Animal> Animals { get; set; }
         public DbSet<AnimalProduct> AnimalProducts { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Event> Events { get; set; }
-    
+
         public DbSet<AnimalCart> AnimalCarts { get; set; }
 
         public DbSet<AnimalEvent> AnimalEvents { get; set; }
 
         public DbSet<CartAnimalProduct> CartAnimalProducts { get; set; }
-
-        
-        
-
             
         public PetDbContext(DbContextOptions options) : base(options)
         {
