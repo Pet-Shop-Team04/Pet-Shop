@@ -57,8 +57,6 @@ namespace Pet_Shop.Models.Services
                           Date = event1.Date,
                           Description = event1.Description,
                           statuse = event1.statuse
-
-
                       }
                 
                 ).FirstOrDefaultAsync(x => x.EventId == Id);
