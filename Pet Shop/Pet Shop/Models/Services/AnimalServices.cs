@@ -61,6 +61,7 @@ namespace Pet_Shop.Models.Services
                     Gender = animal.Gender,
                     Price = animal.Price,
                     DateOfBerth = animal.DateOfBerth,
+                    Age = Calculate(animal.DateOfBerth),
                     AnimalType= animal.Type
                 }).ToListAsync();
         }
@@ -90,6 +91,38 @@ namespace Pet_Shop.Models.Services
 
                 await _context.SaveChangesAsync();
             }
+        }
+
+        private static string Calculate(DateTime dateOfBirth)
+        {
+            DateTime today = DateTime.Now;
+
+            // calculate the years
+            int years = (int)(today.Subtract(dateOfBirth).TotalDays / 365.25);
+
+            // add years to birthdate (born in 2000 doesn't mean you are 22)
+            DateTime newBirthDate = dateOfBirth.AddYears(years);
+
+            int months = 0;
+
+            for (int i = 1; i <= 12; i++)
+            {
+                if (newBirthDate.AddMonths(i) == today)
+                {
+                    months = i;
+                    break;
+                }
+                else if (newBirthDate.AddMonths(i) >= today)
+                {
+                    months = i - 1;
+                    break;
+                }
+            }
+
+            if (years == 0 && months == 0)
+                return "New Born";
+            else
+                return years + " Years & " + months + " Months";
         }
     }
 }
