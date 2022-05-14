@@ -12,6 +12,7 @@ namespace Pet_Shop.Models.DTO
         public string Gender { get; set; }
         public decimal Price { get; set; }
         public DateTime DateOfBerth { get; set; }
+        public string Age { get; set; }
         public string AnimalType { get; set; }
 
         public List<EventDTO> Events { get; set; }
