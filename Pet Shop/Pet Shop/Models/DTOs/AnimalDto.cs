@@ -7,7 +7,6 @@ namespace Pet_Shop.Models.DTO
 {
     public class AnimalDto
     {
-
         public int AnimalId { get; set; }
         public string Name { get; set; }
         public string Gender { get; set; }
@@ -15,8 +14,6 @@ namespace Pet_Shop.Models.DTO
         public DateTime DateOfBerth { get; set; }
         public string AnimalType { get; set; }
 
-
         public List<EventDTO> Events { get; set; }
-
     }
 }

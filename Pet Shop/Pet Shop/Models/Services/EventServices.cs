@@ -23,11 +23,9 @@ namespace Pet_Shop.Models.Services
             Event event1 = new Event {
                 Title = eventDto.Title,
                 Date = eventDto.Date,
-                Description =eventDto.Description,
-                statuse= eventDto.statuse
-
-
-    };
+                Description = eventDto.Description,
+                Status = eventDto.Status
+            };
 
             _context.Entry(event1).State = EntityState.Added;
 
@@ -49,53 +47,43 @@ namespace Pet_Shop.Models.Services
         public async Task<EventDTO> GetEvent(int Id)
         {
             return await _context.Events.Select(
-
-                       event1 => new EventDTO
-                      {
-                           EventId = event1.EventId,
-                           Title = event1.Title,
-                          Date = event1.Date,
-                          Description = event1.Description,
-                          statuse = event1.statuse
-                      }
-                
-                ).FirstOrDefaultAsync(x => x.EventId == Id);
+                event1 => new EventDTO
+                {
+                    EventId = event1.EventId,
+                    Title = event1.Title,
+                   Date = event1.Date,
+                   Description = event1.Description,
+                    Status = event1.Status
+                }).FirstOrDefaultAsync(x => x.EventId == Id);
         }
 
         public async Task<List<EventDTO>> GetEvents()
         {
             return await _context.Events.Select(
 
-                          event1 => new EventDTO
-                          {
-                              EventId = event1.EventId,
-                              Title = event1.Title,
-                              Date = event1.Date,
-                              Description = event1.Description,
-                              statuse = event1.statuse
-
-
-                          }
-
-                   ).ToListAsync();
+            event1 => new EventDTO
+            {
+                EventId = event1.EventId,
+                Title = event1.Title,
+                Date = event1.Date,
+                Description = event1.Description,
+                Status = event1.Status
+            }).ToListAsync();
         }
 
         public async Task<Event> UpdateEvent(int Id, EventDTO eventDto)
         {
             Event event1 = new Event
             {
-
                 Title = eventDto.Title,
                 Date = eventDto.Date,
                 Description = eventDto.Description,
-                statuse = eventDto.statuse
-
-
+                Status = eventDto.Status
             };
+
             _context.Entry(event1).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return event1;
-
         }
     }
 }

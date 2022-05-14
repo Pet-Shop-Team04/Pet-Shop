@@ -10,7 +10,7 @@ namespace Pet_Shop.Models
         public string Gender { get; set; }
         public decimal Price { get; set; }
         public DateTime DateOfBerth { get; set; }
-        public string AnimalType { get; set; }
+        public string Type { get; set; }
 
         public List<AnimalEvent> AnimalEvents { get; set; }
         public List<AnimalCart> AnimalCarts { get; set; }

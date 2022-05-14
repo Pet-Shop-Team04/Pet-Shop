@@ -9,7 +9,8 @@ namespace Pet_Shop.Models
         public DateTime Date { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public bool statuse { get; set; }
+        public bool Status { get; set; }
+
         public List<AnimalEvent> AnimalEvents { get; set; }
 
     }

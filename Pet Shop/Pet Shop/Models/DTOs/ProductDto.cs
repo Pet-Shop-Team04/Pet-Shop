@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Pet_Shop.Models.DTO
 {
-    public class EventDTO
+    public class ProductDto
     {
-        public int EventId { get; set; }
-        public DateTime Date { get; set; }
-        public string Title { get; set; }
+        public int ProdactId { get; set; }
+        public string Name { get; set; }
+        public string AnimalType { get; set; }
+        public int Price { get; set; }
         public string Description { get; set; }
-        public bool Status { get; set; }
     }
 }

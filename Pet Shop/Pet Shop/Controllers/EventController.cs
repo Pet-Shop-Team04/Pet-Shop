@@ -23,7 +23,6 @@ namespace Pet_Shop.Controllers
         }
 
         // POST: api/Event
-
         [HttpPost]
         public async Task<ActionResult<Event>> PostEvent(EventDTO eventDTO)
         {
@@ -48,7 +47,6 @@ namespace Pet_Shop.Controllers
         }
 
         // PUT: api/Event/2
-
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent(int id, EventDTO eventDTO)
         {
@@ -61,8 +59,6 @@ namespace Pet_Shop.Controllers
             return Ok(event1);
         }
 
-
-
         // DELETE: api/Event/2
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
@@ -73,12 +69,8 @@ namespace Pet_Shop.Controllers
                 return NotFound();
             }
 
-
             await _event.DeletEvent(id);
             return NoContent();
-
         }
-
-
     }
 }
