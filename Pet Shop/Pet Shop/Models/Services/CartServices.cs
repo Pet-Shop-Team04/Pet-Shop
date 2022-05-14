@@ -17,6 +17,8 @@ namespace Pet_Shop.Models.Services
         {
             _context = context;
         }
+
+
         public async Task<Cart> Create()
         {
 
@@ -24,7 +26,7 @@ namespace Pet_Shop.Models.Services
             {
 
                 TotalPrice = 0,
-                Count= 0
+                Count = 0
             };
 
 
@@ -36,16 +38,9 @@ namespace Pet_Shop.Models.Services
             return cart;
         }
 
-        public async Task DeleteCart(int id)
-        {
-            Cart cart = await _context.Carts.FindAsync(id);
-            if (cart != null)
-            {
-                _context.Entry(cart).State = EntityState.Deleted;
+       
 
-                await _context.SaveChangesAsync();
-            }
-        }
+       
 
         public async Task<CartDTO> GetCart(int UserId)
         {
@@ -102,6 +97,80 @@ namespace Pet_Shop.Models.Services
             _context.Entry(cart).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return cart;
+        }
+
+
+        public async Task DeleteCart(int id)
+        {
+            Cart cart = await _context.Carts.FindAsync(id);
+            if (cart != null)
+            {
+                _context.Entry(cart).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+
+
+        public async Task<AnimalCart> AddAnimalToCart(int cartId, int animalId)
+        {
+
+           var animalCart1 =  _context.AnimalCarts.FirstOrDefaultAsync(x => x.CartId == cartId && x.AnimalId == animalId);
+            if (animalCart1 == null) {
+
+                return null;
+            }
+
+
+            AnimalCart animalCart = new AnimalCart { 
+            
+            AnimalId = animalId,
+            CartId = cartId
+
+            };
+
+            _context.Entry(animalCart).State = EntityState.Added;
+
+            await _context.SaveChangesAsync();
+            return animalCart;
+        }
+
+        public async Task<CartProduct> AddproductToCart(int cartId, int productId)
+        {
+            CartProduct cartProduct = new CartProduct
+            {
+
+                ProdactId = productId,
+                CartId = cartId
+
+            };
+
+            _context.Entry(cartProduct).State = EntityState.Added;
+
+            await _context.SaveChangesAsync();
+            return cartProduct;
+        }
+
+
+        public async Task DeleteAnimalFromCart(int cartId, int animalId)
+        {
+            AnimalCart animalCart = await _context.AnimalCarts.FirstOrDefaultAsync(x => x.CartId == cartId && x.AnimalId == animalId );
+            if (animalCart != null)
+            {
+                _context.Entry(animalCart).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+        }
+        public async Task DeleteproductFromCart(int cartId, int productId)
+        {
+            CartProduct cartProduct= await _context.CartProducts.FirstOrDefaultAsync(x => x.CartId == cartId && x.ProdactId == productId);
+            if (cartProduct != null)
+            {
+                _context.Entry(cartProduct).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

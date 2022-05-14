@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pet_Shop.Migrations
 {
-    public partial class Add_All_Tables : Migration
+    public partial class adddatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,17 +83,17 @@ namespace Pet_Shop.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AnimalType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Count = table.Column<int>(type: "int", nullable: false)
+                    Amount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -210,15 +210,14 @@ namespace Pet_Shop.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalPrice = table.Column<int>(type: "int", nullable: false),
                     Count = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.CartId);
                     table.ForeignKey(
-                        name: "FK_Carts_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -292,8 +291,87 @@ namespace Pet_Shop.Migrations
                         name: "FK_CartProducts_Products_ProdactId",
                         column: x => x.ProdactId,
                         principalTable: "Products",
-                        principalColumn: "Id",
+                        principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Animals",
+                columns: new[] { "AnimalId", "DateOfBerth", "Gender", "Name", "Price", "Type" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "alex", 30m, "cat" },
+                    { 2, new DateTime(2021, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "male", "sam", 230m, "dog" },
+                    { 3, new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "sozan", 40m, "cat" },
+                    { 4, new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "female", "farah", 20m, "cat" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Carts",
+                columns: new[] { "CartId", "Count", "TotalPrice", "UserId" },
+                values: new object[,]
+                {
+                    { 1, 0, 0, null },
+                    { 2, 0, 0, null },
+                    { 3, 0, 0, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "EventId", "Date", "Description", "Status", "Title" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 1", true, "vaccine 1" },
+                    { 2, new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 2", false, "vaccine 2" },
+                    { 3, new DateTime(2020, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 1", true, "vaccine 1" },
+                    { 4, new DateTime(2022, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 1", false, "vaccine 1" },
+                    { 5, new DateTime(2022, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 2", false, "vaccine 2" },
+                    { 6, new DateTime(2022, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "date for vaccine 1", false, "vaccine 1" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "Amount", "AnimalType", "Description", "Name", "Price" },
+                values: new object[,]
+                {
+                    { 1, 12, "cat", "10k of food for cats", "cat food 1", 20 },
+                    { 2, 12, "dog", "10k of food for dogs", "dog food 1", 20 },
+                    { 3, 6, "cat", "simple cat toy", "cat toy 1", 30 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AnimalCarts",
+                columns: new[] { "AnimalId", "CartId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 3, 1 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AnimalEvents",
+                columns: new[] { "AnimalId", "EventId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 2, 3 },
+                    { 3, 4 },
+                    { 3, 5 },
+                    { 4, 6 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CartProducts",
+                columns: new[] { "CartId", "ProdactId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 3, 1 },
+                    { 1, 2 },
+                    { 2, 2 },
+                    { 2, 3 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -351,9 +429,9 @@ namespace Pet_Shop.Migrations
                 column: "ProdactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UserId1",
+                name: "IX_Carts_UserId",
                 table: "Carts",
-                column: "UserId1");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

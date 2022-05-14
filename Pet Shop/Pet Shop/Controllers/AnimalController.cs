@@ -72,5 +72,38 @@ namespace Pet_Shop.Controllers
             await _animal.DeleteAnimal(id);
             return NoContent();
         }
+        // POST: api/Animal/3/addEvent
+        [HttpPost("{id}/addEvent")]
+        public async Task<ActionResult<AnimalEvent>> AddEvent(int id, Event event1)
+        {
+            AnimalEvent animalEvent = await _animal.AddEventToAnimal(id, event1);
+            return Ok(animalEvent);
+        }
+
+
+
+        //[HttpPost("Animal/{id}/addEvent")]
+        //public async Task<ActionResult<Animal>> PostAnimal(AnimalDto animalDto)
+        //{
+        //    Animal animals = await _animal.Create(animalDto);
+        //    return Ok(animals);
+        //}
+
+
+
+        // DELETE: api/Animal/1/Event/1
+        [HttpDelete("{animalId}/Event/{eventId}")]
+        public async Task<IActionResult> DeleteEvent(int animalId, int eventId)
+        {
+            //var animal = await _animal.GetAnimal(id);
+            //if (animal == null)
+            //{
+            //    return NotFound();
+            //}
+
+            await _animal.DeleteEvent(animalId, eventId);
+            return NoContent();
+        }
+
     }
 }

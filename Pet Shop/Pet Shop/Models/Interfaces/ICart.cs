@@ -13,5 +13,14 @@ namespace Pet_Shop.Models.Interfaces
         Task<List<CartDTO>> GetCarts();
         Task<Cart> UpdateCart(int Id, CartDTO cartDto);
         Task DeleteCart(int UserId);
+
+
+        Task<AnimalCart> AddAnimalToCart( int cartId,int animalId);
+
+        Task DeleteAnimalFromCart(int cartId, int animalId);
+
+        Task<CartProduct> AddproductToCart(int cartId, int productId);
+
+        Task DeleteproductFromCart(int cartId, int productId);
     }
 }

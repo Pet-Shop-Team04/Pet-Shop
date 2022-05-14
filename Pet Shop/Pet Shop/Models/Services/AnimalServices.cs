@@ -124,5 +124,43 @@ namespace Pet_Shop.Models.Services
             else
                 return years + " Years & " + months + " Months";
         }
+
+        public async Task<AnimalEvent> AddEventToAnimal(int animalId, Event event1)
+        {
+            Event newEvent = new Event
+            {
+                Title = event1.Title,
+                Date = event1.Date,
+                Description = event1.Description,
+                Status = event1.Status
+            };
+
+            _context.Entry(newEvent).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+            AnimalEvent animalEvent = new AnimalEvent { AnimalId = animalId, EventId = newEvent.EventId };
+            _context.Entry(animalEvent).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return animalEvent;
+        }
+
+        public async Task<AnimalEvent> AddEvent(AnimalEvent animalEvent)
+        {
+            _context.Entry(animalEvent).State = EntityState.Added;
+
+            await _context.SaveChangesAsync();
+            return animalEvent;
+        }
+
+        public async Task DeleteEvent(int animalId, int eventId)
+        {
+            AnimalEvent animalEvent = await _context.AnimalEvents.FirstOrDefaultAsync(x => x.AnimalId == animalId && x.EventId == eventId);
+            if (animalEvent != null)
+            {
+                _context.Entry(animalEvent).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

@@ -10,8 +10,8 @@ using Pet_Shop.Data;
 namespace Pet_Shop.Migrations
 {
     [DbContext(typeof(PetDbContext))]
-    [Migration("20220514132607_Add_UserFK_To_Cart")]
-    partial class Add_UserFK_To_Cart
+    [Migration("20220514221246_adddatabase")]
+    partial class adddatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -177,6 +177,44 @@ namespace Pet_Shop.Migrations
                     b.HasKey("AnimalId");
 
                     b.ToTable("Animals");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalId = 1,
+                            DateOfBerth = new DateTime(2020, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "alex",
+                            Price = 30m,
+                            Type = "cat"
+                        },
+                        new
+                        {
+                            AnimalId = 2,
+                            DateOfBerth = new DateTime(2021, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "male",
+                            Name = "sam",
+                            Price = 230m,
+                            Type = "dog"
+                        },
+                        new
+                        {
+                            AnimalId = 3,
+                            DateOfBerth = new DateTime(2019, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "female",
+                            Name = "sozan",
+                            Price = 40m,
+                            Type = "cat"
+                        },
+                        new
+                        {
+                            AnimalId = 4,
+                            DateOfBerth = new DateTime(2022, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Gender = "female",
+                            Name = "farah",
+                            Price = 20m,
+                            Type = "cat"
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.AnimalCart", b =>
@@ -192,6 +230,23 @@ namespace Pet_Shop.Migrations
                     b.HasIndex("AnimalId");
 
                     b.ToTable("AnimalCarts");
+
+                    b.HasData(
+                        new
+                        {
+                            CartId = 1,
+                            AnimalId = 1
+                        },
+                        new
+                        {
+                            CartId = 2,
+                            AnimalId = 2
+                        },
+                        new
+                        {
+                            CartId = 1,
+                            AnimalId = 3
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.AnimalEvent", b =>
@@ -207,6 +262,38 @@ namespace Pet_Shop.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("AnimalEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            AnimalId = 1,
+                            EventId = 1
+                        },
+                        new
+                        {
+                            AnimalId = 1,
+                            EventId = 2
+                        },
+                        new
+                        {
+                            AnimalId = 2,
+                            EventId = 3
+                        },
+                        new
+                        {
+                            AnimalId = 3,
+                            EventId = 4
+                        },
+                        new
+                        {
+                            AnimalId = 3,
+                            EventId = 5
+                        },
+                        new
+                        {
+                            AnimalId = 4,
+                            EventId = 6
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.ApplicationUser", b =>
@@ -295,6 +382,26 @@ namespace Pet_Shop.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Carts");
+
+                    b.HasData(
+                        new
+                        {
+                            CartId = 1,
+                            Count = 0,
+                            TotalPrice = 0
+                        },
+                        new
+                        {
+                            CartId = 2,
+                            Count = 0,
+                            TotalPrice = 0
+                        },
+                        new
+                        {
+                            CartId = 3,
+                            Count = 0,
+                            TotalPrice = 0
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.CartProduct", b =>
@@ -310,6 +417,33 @@ namespace Pet_Shop.Migrations
                     b.HasIndex("ProdactId");
 
                     b.ToTable("CartProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            CartId = 1,
+                            ProdactId = 1
+                        },
+                        new
+                        {
+                            CartId = 1,
+                            ProdactId = 2
+                        },
+                        new
+                        {
+                            CartId = 2,
+                            ProdactId = 3
+                        },
+                        new
+                        {
+                            CartId = 2,
+                            ProdactId = 2
+                        },
+                        new
+                        {
+                            CartId = 3,
+                            ProdactId = 1
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.Event", b =>
@@ -334,20 +468,70 @@ namespace Pet_Shop.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 1,
+                            Date = new DateTime(2020, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 1",
+                            Status = true,
+                            Title = "vaccine 1"
+                        },
+                        new
+                        {
+                            EventId = 2,
+                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 2",
+                            Status = false,
+                            Title = "vaccine 2"
+                        },
+                        new
+                        {
+                            EventId = 3,
+                            Date = new DateTime(2020, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 1",
+                            Status = true,
+                            Title = "vaccine 1"
+                        },
+                        new
+                        {
+                            EventId = 4,
+                            Date = new DateTime(2022, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 1",
+                            Status = false,
+                            Title = "vaccine 1"
+                        },
+                        new
+                        {
+                            EventId = 5,
+                            Date = new DateTime(2022, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 2",
+                            Status = false,
+                            Title = "vaccine 2"
+                        },
+                        new
+                        {
+                            EventId = 6,
+                            Date = new DateTime(2022, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "date for vaccine 1",
+                            Status = false,
+                            Title = "vaccine 1"
+                        });
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.Property<string>("AnimalType")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -358,9 +542,38 @@ namespace Pet_Shop.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 1,
+                            Amount = 12,
+                            AnimalType = "cat",
+                            Description = "10k of food for cats",
+                            Name = "cat food 1",
+                            Price = 20
+                        },
+                        new
+                        {
+                            ProductId = 2,
+                            Amount = 12,
+                            AnimalType = "dog",
+                            Description = "10k of food for dogs",
+                            Name = "dog food 1",
+                            Price = 20
+                        },
+                        new
+                        {
+                            ProductId = 3,
+                            Amount = 6,
+                            AnimalType = "cat",
+                            Description = "simple cat toy",
+                            Name = "cat toy 1",
+                            Price = 30
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
