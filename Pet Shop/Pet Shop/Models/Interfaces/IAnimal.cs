@@ -13,5 +13,10 @@ namespace Pet_Shop.Models.Interfaces
         Task<List<AnimalDto>> GetAnimals();
         Task<Animal> UpdateAnimal(int Id, AnimalDto animal);
         Task DeleteAnimal(int Id);
+
+        Task<AnimalEvent> AddEventToAnimal(int animalId, Event Event);
+        Task<AnimalEvent> AddEvent(AnimalEvent animalEvent);
+        Task DeleteEvent(int animalId, int eventId);
+
     }
 }

@@ -21,7 +21,7 @@ namespace Pet_Shop.Models.Services
         {
             Product animalProduct = new Product
             {
-                Id = animalProductDto.ProdactId,
+                ProductId = animalProductDto.ProdactId,
                 Name = animalProductDto.Name,
                 AnimalType = animalProductDto.AnimalType,
                 Price = animalProductDto.Price,
@@ -41,7 +41,7 @@ namespace Pet_Shop.Models.Services
 
                      animalProduct => new ProductDto
                      {
-                         ProdactId = animalProduct.Id,
+                         ProdactId = animalProduct.ProductId,
                          Name= animalProduct.Name,
                          AnimalType= animalProduct.AnimalType,
                          Price= animalProduct.Price,
@@ -57,7 +57,7 @@ namespace Pet_Shop.Models.Services
 
         animalProduct => new ProductDto
         {
-             ProdactId = animalProduct.Id,
+             ProdactId = animalProduct.ProductId,
              Name = animalProduct.Name,
              AnimalType = animalProduct.AnimalType,
              Price = animalProduct.Price,
@@ -72,7 +72,7 @@ namespace Pet_Shop.Models.Services
 
             Product animalProduct = new Product
             {
-                Id = animalProductDto.ProdactId,
+                ProductId = animalProductDto.ProdactId,
                 Name = animalProductDto.Name,
                 AnimalType = animalProductDto.AnimalType,
                 Price = animalProductDto.Price,
