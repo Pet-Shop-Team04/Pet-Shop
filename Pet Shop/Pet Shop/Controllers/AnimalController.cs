@@ -15,17 +15,12 @@ namespace Pet_Shop.Controllers
     [ApiController]
     public class AnimalController : ControllerBase
     {
-
-
         private readonly IAnimal _animal;
-
 
         public AnimalController(IAnimal animal)
         {
             _animal  = animal;
         }
-
-
 
         // POST: api/Animal
         [HttpPost]
@@ -34,6 +29,7 @@ namespace Pet_Shop.Controllers
             Animal animals = await _animal.Create(animalDto);
             return Ok(animals);
         }
+
         // GET: api/Animal
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnimalDto>>> GetAnimal()
@@ -63,23 +59,18 @@ namespace Pet_Shop.Controllers
             return Ok(animal1);
         }
 
-
         // DELETE: api/Animal/21
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnimal(int id)
         {
-
-
             var animal = await _animal.GetAnimal(id);
             if (animal == null)
             {
                 return NotFound();
             }
 
-
             await _animal.DeleteAnimal(id);
             return NoContent();
         }
-
     }
 }

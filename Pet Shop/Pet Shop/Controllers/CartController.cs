@@ -61,8 +61,6 @@ namespace Pet_Shop.Controllers
             return Ok(cart);
         }
 
-
-
         // DELETE: api/Cart/2
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCart(int id)
@@ -78,7 +76,5 @@ namespace Pet_Shop.Controllers
             return NoContent();
 
         }
-
-
     }
 }

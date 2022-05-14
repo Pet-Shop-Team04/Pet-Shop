@@ -1,10 +1,11 @@
 ﻿namespace Pet_Shop.Models
 {
-    public class AnimalCart
+    public class CartProduct
     {
+        public int ProdactId { get; set; }
         public int CartId { get; set; }
-        public int AnimalId { get; set; }
-        public Animal Animal { get; set; }
+
         public Cart Cart { get; set; }
+        public Product Prodact { get; set; }
     }
 }

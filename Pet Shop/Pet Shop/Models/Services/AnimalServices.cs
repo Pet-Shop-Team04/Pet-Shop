@@ -23,13 +23,11 @@ namespace Pet_Shop.Models.Services
 
             Animal animal = new Animal
             {
-
                 Name = animalDto.Name,
                 Gender = animalDto.Gender,
                 Price = animalDto.Price,
                 DateOfBerth = animalDto.DateOfBerth,
-                AnimalType = animalDto.AnimalType
-
+                Type = animalDto.AnimalType
             };
 
             _context.Entry(animal).State = EntityState.Added;
@@ -41,68 +39,46 @@ namespace Pet_Shop.Models.Services
 
         public async Task<AnimalDto> GetAnimal(int id)
         {
-
-
             return await _context.Animals.Select(
-
-                     animal => new AnimalDto
-                     {
-                         AnimalId = animal.AnimalId,
-                         Name = animal.Name,
-                         Gender = animal.Gender,
-                         Price = animal.Price,
-                         DateOfBerth = animal.DateOfBerth,
-                         AnimalType = animal.AnimalType
-
-
-
-
-                     }
-
-              ).FirstOrDefaultAsync(x => x.AnimalId == id);
+                animal => new AnimalDto
+                {
+                    AnimalId = animal.AnimalId,
+                    Name = animal.Name,
+                    Gender = animal.Gender,
+                    Price = animal.Price,
+                    DateOfBerth = animal.DateOfBerth,
+                    AnimalType = animal.Type
+                }).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
 
         public async Task<List<AnimalDto>> GetAnimals()
         {
-
             return await _context.Animals.Select(
-
-                     animal => new AnimalDto
-                     {
-                         AnimalId = animal.AnimalId,
-                         Name = animal.Name,
-                         Gender = animal.Gender,
-                         Price = animal.Price,
-                         DateOfBerth = animal.DateOfBerth,
-                         AnimalType= animal.AnimalType
-
-
-
-
-                     }
-
-              ).ToListAsync();
+                animal => new AnimalDto
+                {
+                    AnimalId = animal.AnimalId,
+                    Name = animal.Name,
+                    Gender = animal.Gender,
+                    Price = animal.Price,
+                    DateOfBerth = animal.DateOfBerth,
+                    AnimalType= animal.Type
+                }).ToListAsync();
         }
 
         public async Task<Animal> UpdateAnimal(int id, AnimalDto animalDto)
         {
             Animal animal = new Animal
             {
-
                 Name = animalDto.Name,
                 Gender = animalDto.Gender,
                 Price = animalDto.Price,
                 DateOfBerth = animalDto.DateOfBerth,
-                AnimalType = animalDto.AnimalType
-
+                Type = animalDto.AnimalType
             };
-
 
             _context.Entry(animal).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return animal;
-
-
         }
 
         public async Task DeleteAnimal(int id)

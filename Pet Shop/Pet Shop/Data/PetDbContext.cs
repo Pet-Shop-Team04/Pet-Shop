@@ -8,31 +8,25 @@ namespace Pet_Shop.Data
     {
 
         public DbSet<Animal> Animals { get; set; }
-        public DbSet<AnimalProduct> AnimalProducts { get; set; }
+        public DbSet<Product> Products { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Event> Events { get; set; }
-
         public DbSet<AnimalCart> AnimalCarts { get; set; }
-
         public DbSet<AnimalEvent> AnimalEvents { get; set; }
-
-        public DbSet<CartAnimalProduct> CartAnimalProducts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
             
         public PetDbContext(DbContextOptions options) : base(options)
         {
            
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);                      
 
             modelBuilder.Entity<AnimalCart>().HasKey(x => new { x.CartId, x.AnimalId });
             modelBuilder.Entity<AnimalEvent>().HasKey(x => new { x.AnimalId, x.EventId });
-            modelBuilder.Entity<CartAnimalProduct>().HasKey(x => new { x.CartId, x.AnimalProdactId });
-
-
-
-
+            modelBuilder.Entity<CartProduct>().HasKey(x => new { x.CartId, x.ProdactId });
         }
     }
 }
