@@ -50,6 +50,9 @@ namespace Pet_Shop
 
             services.AddControllers().AddNewtonsoftJson(
                x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +63,14 @@ namespace Pet_Shop
                 app.UseDeveloperExceptionPage();
             }
 
+            // to use Swagger"swagger/index.html"
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+             //   c.RoutePrefix = string.Empty;
+            });
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
