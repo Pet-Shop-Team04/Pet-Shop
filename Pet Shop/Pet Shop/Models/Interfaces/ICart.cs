@@ -15,6 +15,9 @@ namespace Pet_Shop.Models.Interfaces
         Task DeleteCart(int UserId);
 
 
+       
+
+
         Task<AnimalCart> AddAnimalToCart( int cartId,int animalId);
 
         Task DeleteAnimalFromCart(int cartId, int animalId);

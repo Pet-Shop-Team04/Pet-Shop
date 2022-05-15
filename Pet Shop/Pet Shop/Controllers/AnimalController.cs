@@ -19,7 +19,7 @@ namespace Pet_Shop.Controllers
 
         public AnimalController(IAnimal animal)
         {
-            _animal  = animal;
+            _animal = animal;
         }
 
         // POST: api/Animal
@@ -42,8 +42,8 @@ namespace Pet_Shop.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AnimalDto>> GetAnimal(int id)
         {
-            AnimalDto amenitiesDto = await _animal.GetAnimal(id);
-            return Ok(amenitiesDto);
+            AnimalDto animalDto = await _animal.GetAnimal(id);
+            return Ok(animalDto);
         }
 
         // PUT: api/Animal/1
@@ -104,6 +104,26 @@ namespace Pet_Shop.Controllers
             await _animal.DeleteEvent(animalId, eventId);
             return NoContent();
         }
+        // GET: api/Animal/Name/animalname
+        [HttpGet("Name/{name}")]
+        public async Task<ActionResult<IEnumerable<AnimalDto>>> GetAnimalByName(string name)
+        {
+            AnimalDto animal = await _animal.GetAnimalbyname(name);
+            if (animal == null) 
+            {
+                return BadRequest($"no animal with {name} name");
+            }
 
+
+            return Ok(animal);
+        }
+
+        // GET: api/Animal/Type/cat
+        [HttpGet("Type/{type}")]
+        public async Task<ActionResult<AnimalDto>> GetAnimalsByType(string type)
+        {
+            var animals = await _animal.GetAnimalsByType(type);
+            return Ok(animals);
+        }
     }
 }

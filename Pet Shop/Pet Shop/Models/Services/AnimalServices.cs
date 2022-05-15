@@ -162,5 +162,35 @@ namespace Pet_Shop.Models.Services
                 await _context.SaveChangesAsync();
             }
         }
+
+        public async Task<AnimalDto> GetAnimalbyname(string name)
+        {
+            return await _context.Animals.Select(
+                   animal => new AnimalDto
+                   {
+                       AnimalId = animal.AnimalId,
+                       Name = animal.Name,
+                       Gender = animal.Gender,
+                       Price = animal.Price,
+                       DateOfBerth = animal.DateOfBerth,
+                       AnimalType = animal.Type
+                   }).FirstOrDefaultAsync(x => x.Name == name);
+        }
+
+     
+
+        public async Task<List<AnimalDto>> GetAnimalsByType(string type)
+        {
+            return await _context.Animals.Select(
+                 animal => new AnimalDto
+                 {
+                     AnimalId = animal.AnimalId,
+                     Name = animal.Name,
+                     Gender = animal.Gender,
+                     Price = animal.Price,
+                     DateOfBerth = animal.DateOfBerth,
+                     AnimalType = animal.Type
+                 }).Where(x => x.AnimalType == type).ToListAsync();
+        }
     }
 }

@@ -95,5 +95,36 @@ namespace Pet_Shop.Models.Services
             }
         }
 
+        public async Task<ProductDto> GetProductbyname(string name)
+        {
+            return await _context.Products.Select(
+
+                     animalProduct => new ProductDto
+                     {
+                         ProdactId = animalProduct.ProductId,
+                         Name = animalProduct.Name,
+                         AnimalType = animalProduct.AnimalType,
+                         Price = animalProduct.Price,
+                         Description = animalProduct.Description,
+                     }
+
+              ).FirstOrDefaultAsync(x => x.Name == name);
+        }
+
+        public async Task<List<ProductDto>> GetProductsByType(string type)
+        {
+            return await _context.Products.Select(
+
+                    animalProduct => new ProductDto
+                    {
+                        ProdactId = animalProduct.ProductId,
+                        Name = animalProduct.Name,
+                        AnimalType = animalProduct.AnimalType,
+                        Price = animalProduct.Price,
+                        Description = animalProduct.Description,
+                    }
+
+             ).Where(x => x.AnimalType == type).ToListAsync();
+        }
     }
 }
