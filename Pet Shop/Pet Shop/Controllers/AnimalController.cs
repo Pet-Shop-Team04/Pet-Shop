@@ -26,8 +26,15 @@ namespace Pet_Shop.Controllers
         [HttpPost]
         public async Task<ActionResult<Animal>> PostAnimal(AnimalDto animalDto)
         {
-            Animal animals = await _animal.Create(animalDto);
-            return Ok(animals);
+            try
+            {
+                Animal animals = await _animal.Create(animalDto);
+                return Ok(animals);
+            }
+            catch(Exception e)
+            {
+                return Content(e.Message);
+            }            
         }
 
         // GET: api/Animal
