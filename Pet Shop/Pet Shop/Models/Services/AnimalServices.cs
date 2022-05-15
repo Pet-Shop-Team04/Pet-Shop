@@ -20,6 +20,8 @@ namespace Pet_Shop.Models.Services
 
         public async Task<Animal> Create(AnimalDto animalDto)
         {
+            if (animalDto.DateOfBerth > DateTime.Now)
+                throw new Exception("Birthdate can not be in future!");
 
             Animal animal = new Animal
             {
@@ -34,7 +36,6 @@ namespace Pet_Shop.Models.Services
 
             await _context.SaveChangesAsync();
             return animal;
-
         }
 
         public async Task<AnimalDto> GetAnimal(int id)
@@ -47,6 +48,7 @@ namespace Pet_Shop.Models.Services
                     Gender = animal.Gender,
                     Price = animal.Price,
                     DateOfBerth = animal.DateOfBerth,
+                    Age = Calculate(animal.DateOfBerth),
                     AnimalType = animal.Type
                 }).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
@@ -176,8 +178,6 @@ namespace Pet_Shop.Models.Services
                        AnimalType = animal.Type
                    }).FirstOrDefaultAsync(x => x.Name == name);
         }
-
-     
 
         public async Task<List<AnimalDto>> GetAnimalsByType(string type)
         {
