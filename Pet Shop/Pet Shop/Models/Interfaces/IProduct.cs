@@ -14,11 +14,10 @@ namespace Pet_Shop.Models.Interfaces
         Task<Product> UpdateProduct(int Id, ProductDto animalProdusct);
         Task DeleteProduct(int Id);
 
-
-
         Task<ProductDto> GetProductbyname(string name);
 
-
         Task<List<ProductDto>> GetProductsByType(string type);
+
+        Task<RateProduct> AddRateToProduct(int productId, int rateValue);
     }
 }

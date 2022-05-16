@@ -574,6 +574,39 @@ namespace Pet_Shop.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Pet_Shop.Models.Rate", b =>
+                {
+                    b.Property<int>("RateId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("RateValue")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RateId");
+
+                    b.ToTable("Rates");
+                });
+
+            modelBuilder.Entity("Pet_Shop.Models.RateProduct", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "RateId");
+
+                    b.HasIndex("RateId");
+
+                    b.ToTable("RateProducts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -691,6 +724,25 @@ namespace Pet_Shop.Migrations
                     b.Navigation("Prodact");
                 });
 
+            modelBuilder.Entity("Pet_Shop.Models.RateProduct", b =>
+                {
+                    b.HasOne("Pet_Shop.Models.Product", "Product")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pet_Shop.Models.Rate", "Rate")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Rate");
+                });
+
             modelBuilder.Entity("Pet_Shop.Models.Animal", b =>
                 {
                     b.Navigation("AnimalCarts");
@@ -713,6 +765,13 @@ namespace Pet_Shop.Migrations
             modelBuilder.Entity("Pet_Shop.Models.Product", b =>
                 {
                     b.Navigation("CartProducts");
+
+                    b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("Pet_Shop.Models.Rate", b =>
+                {
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,6 +12,8 @@ namespace Pet_Shop.Models
         public string Description { get; set; }
         public int Amount { get; set; }
 
+        public List<RateProduct> Ratings { get; set; }
+
         public List<CartProduct> CartProducts { get; set; }
 
     }

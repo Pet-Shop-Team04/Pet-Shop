@@ -18,7 +18,7 @@ namespace Pet_Shop.Controllers
         private readonly IProduct _animalProduct;
         public ProductController(IProduct animalProduct)
         {
-            _animalProduct  = animalProduct;
+            _animalProduct = animalProduct;
         }
 
         // POST: api/Product
@@ -67,5 +67,18 @@ namespace Pet_Shop.Controllers
             await _animalProduct.DeleteProduct(id);
             return NoContent();
         }
+
+        //Post: api/Product/1/Rate/4
+        [HttpPost("{productId}/Rate/{rateValue}")]
+        public async Task<ActionResult<RateProduct>> AddRating(int productId, int rateValue)
+        {
+            RateProduct rateProduct = await _animalProduct.AddRateToProduct(productId, rateValue);
+            if(rateProduct == null)
+            {
+                return BadRequest("Rating can not be less than zero or more than five");
+            }
+            return Ok(rateProduct);
+        }
+
     }
 }
