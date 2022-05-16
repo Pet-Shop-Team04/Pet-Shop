@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Data;
 using Pet_Shop.Models.DTO;
+using Pet_Shop.Models.DTOs;
 using Pet_Shop.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,15 @@ namespace Pet_Shop.Models.Services
                     Price = animal.Price,
                     DateOfBerth = animal.DateOfBerth,
                     Age = Calculate(animal.DateOfBerth),
-                    AnimalType = animal.Type
+                    AnimalType = animal.Type,
+                    //Events = animal.AnimalEvents
+                    //.Select(animalEvent => new AnimalEventDTO
+                    //     {
+                            
+                    //        Event = animalEvent.Event
+                            
+
+                    //     }).ToList()
                 }).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
 

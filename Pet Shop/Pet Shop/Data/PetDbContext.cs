@@ -15,7 +15,11 @@ namespace Pet_Shop.Data
         public DbSet<AnimalCart> AnimalCarts { get; set; }
         public DbSet<AnimalEvent> AnimalEvents { get; set; }
         public DbSet<CartProduct> CartProducts { get; set; }
-            
+        public DbSet<Rate> Rates { get; set; }
+        public DbSet<RateProduct> RateProducts { get; set; }
+
+
+
         public PetDbContext(DbContextOptions options) : base(options)
         {
            
@@ -28,6 +32,8 @@ namespace Pet_Shop.Data
             modelBuilder.Entity<AnimalCart>().HasKey(x => new { x.CartId, x.AnimalId });
             modelBuilder.Entity<AnimalEvent>().HasKey(x => new { x.AnimalId, x.EventId });
             modelBuilder.Entity<CartProduct>().HasKey(x => new { x.CartId, x.ProdactId });
+            modelBuilder.Entity<RateProduct>().HasKey(x => new { x.ProductId, x.RateId });
+
 
 
             modelBuilder.Entity<Animal>().HasData(
@@ -101,7 +107,20 @@ namespace Pet_Shop.Data
                new AnimalCart { AnimalId =3, CartId = 1 }
               );
 
+            modelBuilder.Entity<Rate>().HasData(
+                new Rate { RateId = 1 , RateValue =  4},
+                new Rate { RateId = 2, RateValue = 5 },
+                new Rate { RateId = 3, RateValue = 3 }
+                
 
+
+
+                );
+            modelBuilder.Entity<RateProduct>().HasData(
+               new RateProduct { ProductId = 1, RateId = 1},
+               new RateProduct { ProductId = 2, RateId = 2 },
+               new RateProduct { ProductId = 1, RateId = 3 }
+               );
 
 
 

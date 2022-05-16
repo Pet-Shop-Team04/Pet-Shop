@@ -12,5 +12,9 @@ namespace Pet_Shop.Models.DTO
         public string AnimalType { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
+        public double RatingAverage { get; set; }
+        public List<RateProduct> Ratings { get; set; }
+       // public RateOne { get; set; }
+
     }
 }
