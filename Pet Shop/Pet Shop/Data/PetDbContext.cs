@@ -103,9 +103,6 @@ namespace Pet_Shop.Data
 
 
 
-
-
-
          
             modelBuilder.Entity<Rate>().HasData(
                 new Rate { RateId = 1 , RateValue =  4},

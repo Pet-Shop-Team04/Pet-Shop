@@ -68,6 +68,10 @@ namespace Pet_Shop.Controllers
             return NoContent();
         }
 
+
+
+
+
         //Post: api/Product/1/Rate/4
         [HttpPost("{productId}/Rate/{rateValue}")]
         public async Task<ActionResult<RateProduct>> AddRating(int productId, int rateValue)

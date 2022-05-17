@@ -32,7 +32,7 @@ namespace Pet_Shop.Models.Interfaces
 
 
 
-        Task<CartDTO> checkItems(int cartId, ModelStateDictionary modelState);
+        Task<bool> checkItems(int cartId, ModelStateDictionary modelState);
         Task emptyTheCart(int cartId);
         Task<CartDTO> fixTheCart(int cartId, ModelStateDictionary modelState);
         Task<decimal> getTotalAmount(int cartId);
