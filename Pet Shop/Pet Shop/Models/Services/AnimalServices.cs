@@ -51,14 +51,20 @@ namespace Pet_Shop.Models.Services
                     DateOfBerth = animal.DateOfBerth,
                     Age = Calculate(animal.DateOfBerth),
                     AnimalType = animal.Type,
-                    //Events = animal.AnimalEvents
-                    //.Select(animalEvent => new AnimalEventDTO
-                    //     {
-                            
-                    //        Event = animalEvent.Event
-                            
+                    AnimalEvents  = animal.AnimalEvents
+                    .Select(animalEvent => new EventDTO
 
-                    //     }).ToList()
+                    {
+                        
+                           EventId = animalEvent.EventId,
+                           Title= animalEvent.Event.Title,
+                           Date= animalEvent.Event.Date,
+                           Description= animalEvent.Event.Description,
+                           Status= animalEvent.Event.Status
+
+
+                    }).ToList()
+
                 }).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
 
@@ -73,7 +79,21 @@ namespace Pet_Shop.Models.Services
                     Price = animal.Price,
                     DateOfBerth = animal.DateOfBerth,
                     Age = Calculate(animal.DateOfBerth),
-                    AnimalType= animal.Type
+                    AnimalType= animal.Type,
+                    AnimalEvents = animal.AnimalEvents
+                    .Select(animalEvent => new EventDTO
+
+                    {
+
+                        EventId = animalEvent.EventId,
+                        Title = animalEvent.Event.Title,
+                        Date = animalEvent.Event.Date,
+                        Description = animalEvent.Event.Description,
+                        Status = animalEvent.Event.Status
+
+
+                    }).ToList()
+
                 }).ToListAsync();
         }
 

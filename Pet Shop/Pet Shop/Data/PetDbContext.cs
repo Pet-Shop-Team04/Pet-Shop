@@ -76,13 +76,19 @@ namespace Pet_Shop.Data
                  );
 
             modelBuilder.Entity<CartProduct>().HasData(
-            new CartProduct { CartId = 1 , ProdactId = 1},
-            new CartProduct { CartId = 1, ProdactId = 2 },
-            new CartProduct { CartId = 2, ProdactId = 3 },
-            new CartProduct { CartId = 2, ProdactId = 2 },
-            new CartProduct { CartId = 3, ProdactId = 1 }
+            new CartProduct { CartId = 1 , ProdactId = 1, Amount = 3},
+            new CartProduct { CartId = 1, ProdactId = 2, Amount = 2},
+            new CartProduct { CartId = 2, ProdactId = 3 , Amount = 4},
+            new CartProduct { CartId = 2, ProdactId = 2 , Amount = 5},
+            new CartProduct { CartId = 3, ProdactId = 1, Amount = 1 }
              );
 
+            modelBuilder.Entity<AnimalCart>().HasData(
+           new AnimalCart { CartId = 1, AnimalId = 1 },
+           new AnimalCart { CartId = 1, AnimalId = 2 },
+           new AnimalCart { CartId = 2, AnimalId = 3 },
+           new AnimalCart { CartId = 2, AnimalId = 4 }
+            );
 
 
             modelBuilder.Entity<AnimalEvent>().HasData(
@@ -100,23 +106,16 @@ namespace Pet_Shop.Data
 
 
 
-          modelBuilder.Entity<AnimalCart>().HasData(
-
-             new AnimalCart {  AnimalId =1 ,CartId =1  },
-              new AnimalCart { AnimalId = 2, CartId = 2 },
-               new AnimalCart { AnimalId =3, CartId = 1 }
-              );
-
+         
             modelBuilder.Entity<Rate>().HasData(
                 new Rate { RateId = 1 , RateValue =  4},
                 new Rate { RateId = 2, RateValue = 5 },
                 new Rate { RateId = 3, RateValue = 3 }
-                
-
 
 
                 );
-            modelBuilder.Entity<RateProduct>().HasData(
+
+             modelBuilder.Entity<RateProduct>().HasData(
                new RateProduct { ProductId = 1, RateId = 1},
                new RateProduct { ProductId = 2, RateId = 2 },
                new RateProduct { ProductId = 1, RateId = 3 }

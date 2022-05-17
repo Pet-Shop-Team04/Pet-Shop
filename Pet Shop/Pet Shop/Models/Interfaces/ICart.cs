@@ -1,4 +1,6 @@
-﻿using Pet_Shop.Models.DTO;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Pet_Shop.Models.DTO;
+using Pet_Shop.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace Pet_Shop.Models.Interfaces
     {
         Task<Cart> Create();
         Task<CartDTO> GetCart(int UserId);
-        Task<List<CartDTO>> GetCarts();
+        Task<List<CartDTO2>> GetCarts();
         Task<Cart> UpdateCart(int Id, CartDTO cartDto);
         Task DeleteCart(int UserId);
 
@@ -25,5 +27,17 @@ namespace Pet_Shop.Models.Interfaces
         Task<CartProduct> AddproductToCart(int cartId, int productId);
 
         Task DeleteproductFromCart(int cartId, int productId);
+
+
+
+
+
+        Task<CartDTO> checkItems(int cartId, ModelStateDictionary modelState);
+        Task emptyTheCart(int cartId);
+        Task<CartDTO> fixTheCart(int cartId, ModelStateDictionary modelState);
+        Task<decimal> getTotalAmount(int cartId);
+
+        Task buy(int cartId, ModelStateDictionary modelState);
+        
     }
 }

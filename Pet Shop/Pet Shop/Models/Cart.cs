@@ -5,7 +5,7 @@ namespace Pet_Shop.Models
     public class Cart
     {
         public int CartId { get; set; }
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public int Count { get; set; }
 
         public ApplicationUser User { get; set; }
