@@ -206,7 +206,7 @@ namespace Pet_Shop.Models.Services
             }
         }
 
-        public async Task<CartDTO> checkItems(int cartId, ModelStateDictionary modelState)
+        public async Task<bool> checkItems(int cartId, ModelStateDictionary modelState)
         {
 
             List<AnimalCart> animalList = await _context.AnimalCarts.Where(x => x.CartId == cartId).Include(x => x.Animal).ToListAsync();
@@ -239,7 +239,13 @@ namespace Pet_Shop.Models.Services
 
             }
 
-            return null;
+
+            if (modelState.IsValid)
+
+            { return true;
+            }
+            else { return false; }
+
 
         }
         public async Task<CartDTO> fixTheCart(int cartId, ModelStateDictionary modelState)
@@ -254,7 +260,7 @@ namespace Pet_Shop.Models.Services
                 if (await _context.Animals.FirstOrDefaultAsync(x => x.AnimalId == item.AnimalId) == null)
                 {
                     int animalId2 = item.AnimalId;
-                    DeleteAnimalFromCart(cartId, animalId2);
+                    await DeleteAnimalFromCart(cartId, animalId2);
                    modelState.AddModelError("item deleted",$"animal with id {animalId2} delete from the cart , because your order is more than the capacity left in the shop");
 
                     //AnimalServices x= new AnimalServices();
@@ -268,25 +274,22 @@ namespace Pet_Shop.Models.Services
 
             foreach (CartProduct item in productsList)
             {
-                Product item2 = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == item.ProdactId);
-                if (item2 == null)
+                Product product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == item.ProdactId);
+                if (product == null)
                 {
-                    DeleteproductFromCart(cartId, item.ProdactId);
+                    await DeleteproductFromCart(cartId, item.ProdactId);
                     modelState.AddModelError("item deleted", $"product with id {item.ProdactId} delete from the cart");
 
                 }
                 //else { modelState.AddModelError("Cart Error ", "something not ok2");  }
 
 
-                if (item2.Amount < item.Amount)
+                if (product.Amount < item.Amount)
                 {
-                    DeleteproductFromCart(cartId, item.ProdactId);
+                    await DeleteproductFromCart(cartId, item.ProdactId);
                     modelState.AddModelError("item deleted", $"product with id {item.ProdactId} delete from the cart");
 
                 }
-
-
-
             }
 
             return null;
@@ -295,7 +298,23 @@ namespace Pet_Shop.Models.Services
 
 
         }
+        public async Task<bool> ediTheAmount(int productId, int amount)
+        {
+            Product product = await _context.Products.FirstOrDefaultAsync(x => x.ProductId == productId);
 
+            if (product.Amount <amount)
+            {
+                return false;
+            }
+
+            product.Amount -= amount; 
+            
+                _context.Entry(product).State = EntityState.Modified;
+
+                await _context.SaveChangesAsync();
+            return true;
+            
+        }
         public async Task<decimal> getTotalAmount(int cartId) {
 
             decimal total = 0;
@@ -342,13 +361,16 @@ namespace Pet_Shop.Models.Services
             foreach (AnimalCart item in animalList)
             {
 
-                DeleteproductFromCart(cartId, item.AnimalId);
+                await DeleteproductFromCart(cartId, item.AnimalId);
 
             }
 
             foreach (CartProduct item in productsList)
             {
-                DeleteproductFromCart(cartId, item.ProdactId);
+
+                await ediTheAmount(cartId, item.Amount);
+
+                await DeleteproductFromCart(cartId, item.ProdactId);
 
 
             }
@@ -361,15 +383,19 @@ namespace Pet_Shop.Models.Services
         public async Task buy(int cartId, ModelStateDictionary modelState)
         {
 
-             checkItems(cartId, modelState);
+           var x=  checkItems(cartId, modelState).Result;
 
-            if (modelState.IsValid)
+            //modelState.IsValid
+            if (x== true)
             {
-                  emptyTheCart(cartId);
+                await  emptyTheCart(cartId);
+
+             // await _context.SaveChangesAsync();
+
             }
             else {
 
-                modelState.AddModelError("item deleted", $"product delete from the cart");
+                modelState.AddModelError("item deleted", $"product delete from the cart please try to fix or check the cart");
                 
             }
 

@@ -229,7 +229,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Cart/1/checkItems
         [HttpGet("{CartId}/checkItems")]
-        public async Task<ActionResult<IEnumerable<CartDTO>>> checkItems(int cartId)
+        public async Task<ActionResult<IEnumerable<bool>>> checkItems(int cartId)
         {
            
 
@@ -253,7 +253,7 @@ namespace Pet_Shop.Controllers
         }
 
 
-        // GET: api/Cart
+        // GET: api/Cart/2/Total
         [HttpGet("{CartId}/Total")]
         public async Task<ActionResult<decimal>> getTotalAmount(int cartId)
         {
