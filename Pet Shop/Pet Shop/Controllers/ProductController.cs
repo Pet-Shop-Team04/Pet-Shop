@@ -79,6 +79,26 @@ namespace Pet_Shop.Controllers
             }
             return Ok(rateProduct);
         }
+        // GET: api/Product/Name/productname
+        [HttpGet("Name/{name}")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductByName(string name)
+        {
+            ProductDto productDto = await _animalProduct.GetProductbyname(name);
+            if (productDto == null)
+            {
+                return BadRequest($"no animal with {name} name");
+            }
 
+
+            return Ok(productDto);
+        }
+
+        // GET: api/Product/Type/cat
+        [HttpGet("Type/{type}")]
+        public async Task<ActionResult<ProductDto>> GetProductByType(string type)
+        {
+            var productDto = await _animalProduct.GetProductsByType(type);
+            return Ok(productDto);
+        }
     }
 }

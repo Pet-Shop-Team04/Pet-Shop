@@ -1,4 +1,6 @@
-﻿namespace Pet_Shop.Models
+﻿using System.Collections.Generic;
+
+namespace Pet_Shop.Models
 {
     public class AnimalEvent
     {

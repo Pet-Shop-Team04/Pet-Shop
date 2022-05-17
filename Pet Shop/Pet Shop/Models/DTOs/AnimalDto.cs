@@ -15,6 +15,6 @@ namespace Pet_Shop.Models.DTO
         public string Age { get; set; }
         public string AnimalType { get; set; }
 
-        public List<AnimalEvent> Events { get; set; }
+        public List<EventDTO> AnimalEvents { get; set; }
     }
 }

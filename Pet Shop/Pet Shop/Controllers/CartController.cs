@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Models;
 using Pet_Shop.Models.DTO;
+using Pet_Shop.Models.DTOs;
 using Pet_Shop.Models.Interfaces;
 
 namespace Pet_Shop.Controllers
@@ -33,7 +34,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Cart
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
+        public async Task<ActionResult<IEnumerable<CartDTO2>>> GetCarts()
         {
             var carts = await _cart.GetCarts();
             return Ok(carts);
@@ -138,5 +139,144 @@ namespace Pet_Shop.Controllers
             return NoContent();
 
         }
+    
+
+
+
+
+        // DELETE: api/Cart/2/buy
+        [HttpDelete("{CartId}/buy")]
+        public async Task<IActionResult> buyProduct(int cartId)
+         {
+           
+            try
+            {
+
+               await _cart.buy(cartId, this.ModelState);
+
+                if (ModelState.IsValid)
+                {
+                    return Ok("buy done");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+
+        // DELETE: api/Cart/2/empty
+        [HttpDelete("{CartId}/empty")]
+     public async Task<IActionResult> emptyTheCart(int cartId)
+    {
+            //await _cart.emptyTheCart( cartId);
+
+            //return NoContent();
+
+
+            try
+            {
+
+                await _cart.emptyTheCart(cartId);
+
+                if (ModelState.IsValid)
+                {
+                    return Ok("Registered done");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
+        }
+
+
+
+
+        // DELETE: api/Cart/2/FixCart
+        [HttpDelete("{CartId}/FixCart")]
+        public async Task<IActionResult> fixTheCart(int cartId)
+        {
+            
+            try
+            {
+
+                await _cart.fixTheCart(cartId, this.ModelState);
+
+                 if (ModelState.IsValid)
+                {
+                    return Ok("cart fixed");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+
+
+        }
+
+        // GET: api/Cart/1/checkItems
+        [HttpGet("{CartId}/checkItems")]
+        public async Task<ActionResult<IEnumerable<CartDTO>>> checkItems(int cartId)
+        {
+           
+
+            try
+            {
+
+                await _cart.checkItems(cartId, this.ModelState);
+
+                if (ModelState.IsValid)
+                {
+                    return Ok("checkItems done");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+
+        // GET: api/Cart
+        [HttpGet("{CartId}/Total")]
+        public async Task<ActionResult<decimal>> getTotalAmount(int cartId)
+        {
+
+
+            try
+            {
+
+              var x =  await _cart.getTotalAmount(cartId);
+
+                if (ModelState.IsValid)
+                {
+                    return Ok($"checkItems done{x}");
+
+                }
+                return BadRequest(new ValidationProblemDetails(ModelState));
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
     }
 }
