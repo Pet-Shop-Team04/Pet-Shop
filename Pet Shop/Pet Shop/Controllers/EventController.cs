@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace Pet_Shop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventController : ControllerBase
     {
         private readonly IEvent _event;
@@ -24,6 +26,7 @@ namespace Pet_Shop.Controllers
 
         // POST: api/Event
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult<Event>> PostEvent(EventDTO eventDTO)
         {
             Event event1 = await _event.Create(eventDTO);
@@ -48,6 +51,7 @@ namespace Pet_Shop.Controllers
 
         // PUT: api/Event/2
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutEvent(int id, EventDTO eventDTO)
         {
             if (id != eventDTO.EventId)
@@ -61,6 +65,7 @@ namespace Pet_Shop.Controllers
 
         // DELETE: api/Event/2
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
             var event1 = await _event.GetEvent(id);

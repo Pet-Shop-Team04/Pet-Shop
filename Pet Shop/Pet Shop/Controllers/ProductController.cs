@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace Pet_Shop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private readonly IProduct _animalProduct;
@@ -23,6 +25,7 @@ namespace Pet_Shop.Controllers
 
         // POST: api/Product
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> PostAnimalProduct(ProductDto animalProductDto)
         {
             Product animalDto = await _animalProduct.Create(animalProductDto);
@@ -31,6 +34,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Product
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetAnimalProduct()
         {
             var animalProduct = await _animalProduct.GetProducts();
@@ -39,6 +43,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Product/1
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ProductDto>> GetAnimalProduct(int id)
         {
             ProductDto animalProduct = await _animalProduct.GetProduct(id);
@@ -47,6 +52,7 @@ namespace Pet_Shop.Controllers
 
         // PUT: api/Product/1
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutAnimalProduct(int id, ProductDto animalProductDto)
         {
             Product animal = await _animalProduct.UpdateProduct(id, animalProductDto);
@@ -55,6 +61,7 @@ namespace Pet_Shop.Controllers
 
         // DELETE: api/Product/1
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAnimalProduct(int id)
         {
             var product = await _animalProduct.GetProduct(id);
@@ -67,10 +74,6 @@ namespace Pet_Shop.Controllers
             await _animalProduct.DeleteProduct(id);
             return NoContent();
         }
-
-
-
-
 
         //Post: api/Product/1/Rate/4
         [HttpPost("{productId}/Rate/{rateValue}")]
@@ -85,6 +88,7 @@ namespace Pet_Shop.Controllers
         }
         // GET: api/Product/Name/productname
         [HttpGet("Name/{name}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductByName(string name)
         {
             ProductDto productDto = await _animalProduct.GetProductbyname(name);
@@ -99,6 +103,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Product/Type/cat
         [HttpGet("Type/{type}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ProductDto>> GetProductByType(string type)
         {
             var productDto = await _animalProduct.GetProductsByType(type);

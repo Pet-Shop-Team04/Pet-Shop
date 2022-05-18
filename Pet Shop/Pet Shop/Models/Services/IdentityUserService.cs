@@ -13,11 +13,16 @@ namespace Pet_Shop.Models.Services
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
+        private RoleManager<IdentityRole> _roleManager;
 
-        public IdentityUserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+
+        public IdentityUserService(UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public async Task<UserDTO> Login(LoginData data, ModelStateDictionary modelState)
@@ -33,6 +38,7 @@ namespace Pet_Shop.Models.Services
 
             if (result.Succeeded)
             {
+                await _signInManager.SignInAsync(user, false);
                 return new UserDTO
                 {
                     Id = user.Id,
@@ -73,8 +79,10 @@ namespace Pet_Shop.Models.Services
                 }
                 return null;
             }
-
-
+        }
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Models;
@@ -36,7 +37,38 @@ namespace Pet_Shop.Data
             modelBuilder.Entity<RateProduct>().HasKey(x => new { x.ProductId, x.RateId });
             modelBuilder.Entity<CommentAnimal>().HasKey(x => new { x.AnimalId, x.CommentId });
 
+            // any unique string id
+            const string ADMIN_ID = "a18be9c0";
+            const string ROLE_ID = "ad376a8f";
 
+            // create an Admin role
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = ROLE_ID,
+                Name = "Admin",
+                NormalizedName = "Admin"
+            });
+
+            // create a User
+            var hasher = new PasswordHasher<ApplicationUser>();
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            {
+                Id = ADMIN_ID,
+                UserName = "admin",
+                NormalizedUserName = "admin",
+                Email = "admin@gmail.com",
+                NormalizedEmail = "admin@gmail.com",
+                EmailConfirmed = false,
+                PasswordHash = hasher.HashPassword(null, "Admin123#"),
+                SecurityStamp = string.Empty
+            });
+
+            // assign that user to the admin role
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = ROLE_ID,
+                UserId = ADMIN_ID
+            });
 
             modelBuilder.Entity<Animal>().HasData(
                 
