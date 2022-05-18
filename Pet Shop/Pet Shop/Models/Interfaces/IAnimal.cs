@@ -22,6 +22,8 @@ namespace Pet_Shop.Models.Interfaces
         Task<AnimalEvent> AddEventToAnimal(int animalId, Event Event);
         Task<AnimalEvent> AddEvent(AnimalEvent animalEvent);
         Task DeleteEvent(int animalId, int eventId);
+        Task<CommentAnimal> AddCommentToAnimal(int AniamlID, string Comment);
 
+        Task DeleteComment(int animalId, int commenttId);
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pet_Shop.Migrations
 {
-    public partial class addDatabase : Migration
+    public partial class allDone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -238,6 +238,27 @@ namespace Pet_Shop.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CComment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AnimalEvents",
                 columns: table => new
                 {
@@ -331,6 +352,30 @@ namespace Pet_Shop.Migrations
                         column: x => x.ProdactId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommentAnimals",
+                columns: table => new
+                {
+                    CommentId = table.Column<int>(type: "int", nullable: false),
+                    AnimalId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentAnimals", x => new { x.AnimalId, x.CommentId });
+                    table.ForeignKey(
+                        name: "FK_CommentAnimals_Animals_AnimalId",
+                        column: x => x.AnimalId,
+                        principalTable: "Animals",
+                        principalColumn: "AnimalId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CommentAnimals_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "CommentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -494,6 +539,16 @@ namespace Pet_Shop.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CommentAnimals_CommentId",
+                table: "CommentAnimals",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_AppUserId",
+                table: "Comments",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RateProducts_RateId",
                 table: "RateProducts",
                 column: "RateId");
@@ -526,10 +581,10 @@ namespace Pet_Shop.Migrations
                 name: "CartProducts");
 
             migrationBuilder.DropTable(
-                name: "RateProducts");
+                name: "CommentAnimals");
 
             migrationBuilder.DropTable(
-                name: "Animals");
+                name: "RateProducts");
 
             migrationBuilder.DropTable(
                 name: "Events");
@@ -539,6 +594,12 @@ namespace Pet_Shop.Migrations
 
             migrationBuilder.DropTable(
                 name: "Carts");
+
+            migrationBuilder.DropTable(
+                name: "Animals");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Products");
