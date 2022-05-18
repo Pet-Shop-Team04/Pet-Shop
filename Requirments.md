@@ -55,4 +55,4 @@ We aim to assign roles to owners and users in the 2nd version of our app, as wel
 - ....
 
 ### ER Diagram
-![image](images/petShopERD.png)
+![image](images/petShopERD100.0.png)

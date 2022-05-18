@@ -132,5 +132,25 @@ namespace Pet_Shop.Controllers
             var animals = await _animal.GetAnimalsByType(type);
             return Ok(animals);
         }
+        //Post: api/Animal/1/Comment/"CComment"
+        [HttpPost("{AniamlID}/Comment/{CComment}")]
+        public async Task<ActionResult<CommentAnimal>> AddRating(int AniamlID, string cComment)
+        {
+            CommentAnimal commentAnimal = await _animal.AddCommentToAnimal(AniamlID, cComment);
+            if (commentAnimal == null)
+            {
+                return BadRequest("Rating can not be less than zero or more than five");
+            }
+            return Ok(commentAnimal);
+        }
+        // DELETE: api/Animal/1/Comment/1
+        [HttpDelete("{animalId}/Comment/{commentId}")]
+        public async Task<IActionResult> DeleteComment(int animalId, int commentId)
+        {
+
+
+            await _animal.DeleteComment(animalId, commentId);
+            return NoContent();
+        }
     }
 }

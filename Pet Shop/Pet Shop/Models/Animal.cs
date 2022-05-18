@@ -11,6 +11,7 @@ namespace Pet_Shop.Models
         public decimal Price { get; set; }
         public DateTime DateOfBerth { get; set; }
         public string Type { get; set; }
+        public List<CommentAnimal> CommentAnimals { get; set; }
 
         public List<AnimalEvent> AnimalEvents { get; set; }
         public List<AnimalCart> AnimalCarts { get; set; }

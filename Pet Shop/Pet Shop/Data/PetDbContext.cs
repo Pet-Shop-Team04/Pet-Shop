@@ -17,7 +17,8 @@ namespace Pet_Shop.Data
         public DbSet<CartProduct> CartProducts { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<RateProduct> RateProducts { get; set; }
-
+        public DbSet<CommentAnimal> CommentAnimals { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
         public PetDbContext(DbContextOptions options) : base(options)
@@ -33,6 +34,7 @@ namespace Pet_Shop.Data
             modelBuilder.Entity<AnimalEvent>().HasKey(x => new { x.AnimalId, x.EventId });
             modelBuilder.Entity<CartProduct>().HasKey(x => new { x.CartId, x.ProdactId });
             modelBuilder.Entity<RateProduct>().HasKey(x => new { x.ProductId, x.RateId });
+            modelBuilder.Entity<CommentAnimal>().HasKey(x => new { x.AnimalId, x.CommentId });
 
 
 

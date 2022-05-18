@@ -63,11 +63,46 @@ namespace Pet_Shop.Models.Services
                            Status= animalEvent.Event.Status
 
 
+                    }).ToList(),
+                    CommentAnimals = animal.CommentAnimals
+                    .Select(item => new CommentAnimal
+                    {
+                        AnimalId = item.AnimalId,
+                        CommentId = item.CommentId,
+                        Comment = item.Comment,
+                        Animal = item.Animal
                     }).ToList()
+
 
                 }).FirstOrDefaultAsync(x => x.AnimalId == id);
         }
+        public async Task<CommentAnimal> AddCommentToAnimal(int AniamlID, string cComment)
+        {
+            Comment newComment = new Comment
+            {
+                CComment = cComment,
 
+
+            };
+            _context.Entry(newComment).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+
+            CommentAnimal CommentAnimal = new CommentAnimal { AnimalId = AniamlID, CommentId = newComment.CommentId };
+            _context.Entry(CommentAnimal).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+            return CommentAnimal;
+        }
+        public async Task DeleteComment(int animalId, int commenttId)
+        {
+            CommentAnimal commentAnimal = await _context.CommentAnimals.FirstOrDefaultAsync(x => x.AnimalId == animalId && x.CommentId == commenttId);
+            if (commentAnimal != null)
+            {
+                _context.Entry(commentAnimal).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+            }
+        }
         public async Task<List<AnimalDto>> GetAnimals()
         {
             return await _context.Animals.Select(

@@ -14,7 +14,7 @@ namespace Pet_Shop.Models.DTO
         public DateTime DateOfBerth { get; set; }
         public string Age { get; set; }
         public string AnimalType { get; set; }
-
+        public List<CommentAnimal> CommentAnimals { get; set; }
         public List<EventDTO> AnimalEvents { get; set; }
     }
 }

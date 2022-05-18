@@ -10,8 +10,8 @@ using Pet_Shop.Data;
 namespace Pet_Shop.Migrations
 {
     [DbContext(typeof(PetDbContext))]
-    [Migration("20220517150207_addDatabase")]
-    partial class addDatabase
+    [Migration("20220518072257_allDone")]
+    partial class allDone
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -459,6 +459,44 @@ namespace Pet_Shop.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Pet_Shop.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Pet_Shop.Models.CommentAnimal", b =>
+                {
+                    b.Property<int>("AnimalId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AnimalId", "CommentId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("CommentAnimals");
+                });
+
             modelBuilder.Entity("Pet_Shop.Models.Event", b =>
                 {
                     b.Property<int>("EventId")
@@ -776,6 +814,34 @@ namespace Pet_Shop.Migrations
                     b.Navigation("Prodact");
                 });
 
+            modelBuilder.Entity("Pet_Shop.Models.Comment", b =>
+                {
+                    b.HasOne("Pet_Shop.Models.ApplicationUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Pet_Shop.Models.CommentAnimal", b =>
+                {
+                    b.HasOne("Pet_Shop.Models.Animal", "Animal")
+                        .WithMany("CommentAnimals")
+                        .HasForeignKey("AnimalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Pet_Shop.Models.Comment", "Comment")
+                        .WithMany("CommentAnimals")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Animal");
+
+                    b.Navigation("Comment");
+                });
+
             modelBuilder.Entity("Pet_Shop.Models.RateProduct", b =>
                 {
                     b.HasOne("Pet_Shop.Models.Product", "Product")
@@ -800,6 +866,8 @@ namespace Pet_Shop.Migrations
                     b.Navigation("AnimalCarts");
 
                     b.Navigation("AnimalEvents");
+
+                    b.Navigation("CommentAnimals");
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.Cart", b =>
@@ -807,6 +875,11 @@ namespace Pet_Shop.Migrations
                     b.Navigation("AnimalCarts");
 
                     b.Navigation("CartProducts");
+                });
+
+            modelBuilder.Entity("Pet_Shop.Models.Comment", b =>
+                {
+                    b.Navigation("CommentAnimals");
                 });
 
             modelBuilder.Entity("Pet_Shop.Models.Event", b =>
