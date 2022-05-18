@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace Pet_Shop.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AnimalController : ControllerBase
     {
         private readonly IAnimal _animal;
@@ -39,6 +41,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Animal
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AnimalDto>>> GetAnimal()
         {
             var animals = await _animal.GetAnimals();
@@ -47,6 +50,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Animal/1
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AnimalDto>> GetAnimal(int id)
         {
             AnimalDto animalDto = await _animal.GetAnimal(id);
@@ -79,6 +83,7 @@ namespace Pet_Shop.Controllers
             await _animal.DeleteAnimal(id);
             return NoContent();
         }
+
         // POST: api/Animal/3/addEvent
         [HttpPost("{id}/addEvent")]
         public async Task<ActionResult<AnimalEvent>> AddEvent(int id, Event event1)
@@ -86,8 +91,6 @@ namespace Pet_Shop.Controllers
             AnimalEvent animalEvent = await _animal.AddEventToAnimal(id, event1);
             return Ok(animalEvent);
         }
-
-
 
         //[HttpPost("Animal/{id}/addEvent")]
         //public async Task<ActionResult<Animal>> PostAnimal(AnimalDto animalDto)
@@ -113,6 +116,7 @@ namespace Pet_Shop.Controllers
         }
         // GET: api/Animal/Name/animalname
         [HttpGet("Name/{name}")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<AnimalDto>>> GetAnimalByName(string name)
         {
             AnimalDto animal = await _animal.GetAnimalbyname(name);
@@ -127,6 +131,7 @@ namespace Pet_Shop.Controllers
 
         // GET: api/Animal/Type/cat
         [HttpGet("Type/{type}")]
+        [AllowAnonymous]
         public async Task<ActionResult<AnimalDto>> GetAnimalsByType(string type)
         {
             var animals = await _animal.GetAnimalsByType(type);
@@ -134,6 +139,7 @@ namespace Pet_Shop.Controllers
         }
         //Post: api/Animal/1/Comment/"CComment"
         [HttpPost("{AniamlID}/Comment/{CComment}")]
+        [AllowAnonymous]
         public async Task<ActionResult<CommentAnimal>> AddRating(int AniamlID, string cComment)
         {
             CommentAnimal commentAnimal = await _animal.AddCommentToAnimal(AniamlID, cComment);

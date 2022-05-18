@@ -72,10 +72,16 @@ namespace Pet_Shop
              //   c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
-
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapGet("/Account/Login", async context =>
+                {
+                    await context.Response.WriteAsync("Please Login First!");
+                });
 
                 endpoints.MapGet("/", async context =>
                 {

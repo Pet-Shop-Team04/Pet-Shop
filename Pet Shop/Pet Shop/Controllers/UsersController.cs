@@ -60,5 +60,12 @@ namespace Pet_Shop.Controllers
             }
 
         }
+
+        [HttpPost("Logout")]
+        public async Task<ActionResult> Logout()
+        {
+            await _user.Logout();
+            return Content("Logged out");
+        }
     }
 }

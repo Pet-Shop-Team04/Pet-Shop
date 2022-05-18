@@ -9,7 +9,8 @@ namespace Pet_Shop.Models.Interfaces
 {
     public interface IUserService
     {
-        Task<ApplicationUser> Register(RegisterUserDTO data, ModelStateDictionary modelState);
+        public Task<ApplicationUser> Register(RegisterUserDTO data, ModelStateDictionary modelState);
         public Task<UserDTO> Login(LoginData data, ModelStateDictionary modelState);
+        public Task Logout();
     }
 }

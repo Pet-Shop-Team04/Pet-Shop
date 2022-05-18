@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pet_Shop.Data;
 using Pet_Shop.Models.DTO;
 using Pet_Shop.Models.DTOs;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 
 namespace Pet_Shop.Models.Services
 {
+
+    
     public class AnimalServices : IAnimal
     {
         private readonly PetDbContext _context;
@@ -103,6 +106,7 @@ namespace Pet_Shop.Models.Services
                 await _context.SaveChangesAsync();
             }
         }
+
         public async Task<List<AnimalDto>> GetAnimals()
         {
             return await _context.Animals.Select(
